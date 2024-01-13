@@ -1,8 +1,8 @@
 ProductController
-Get Products
-Add a ProductController
-Get One ProductController
-Rate Product
+Get Products - Done
+Add a Product - Done
+Get One Product - Done
+Rate Product - Done
 
 
 
