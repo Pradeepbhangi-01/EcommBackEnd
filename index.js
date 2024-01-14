@@ -7,37 +7,37 @@ import cartRouter from "./src/features/cartItems/cartItems.routes.js";
 import bodyParser from "body-parser";
 import apiDocs from "./swagger.json" assert { type: "json" };
 import jwtAuth from "./src/middleware/jwtAuth.middleware.js";
+import loggerMiddleware from "./src/middleware/logger.middleware.js";
+import ApplicationError from "./src/error-handling/applicationerror.js";
 
 const app = express();
 
-// let corsOptions = {
-//   origin: "http://localhost:5500",
-// };
-// app.use(cors(corsOptions));
-
-app.use(cors());
 // CORS policy configuration
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   res.header("Access-Control-Allow-Methods", "*");
-
-//   //returning ok for preflight request
-//   if ((req.method = "OPTIONS")) {
-//     return res.sendStatus(200);
-//   }
-//   next();
-// });
+app.use(cors());
 
 //middlewares
+
 app.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 app.use(bodyParser.json());
+app.use(loggerMiddleware);
+
 app.use("/api/products", jwtAuth, productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/cart", jwtAuth, cartRouter);
 
 app.get("/", (req, res) => {
   res.send("response from the server");
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+
+  // userdefined error
+  if (err instanceof ApplicationError) {
+    return res.status(err.code).send(err.message);
+  }
+  // server error
+  res.status(500).send("OOPs Something went wrong");
 });
 
 // for handling 404 errors

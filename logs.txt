@@ -1,0 +1,13 @@
+{"level":"info","message":"Sun Jan 14 2024 18:11:54 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:13:05 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:25:18 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:37:12 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:39:35 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:41:24 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:42:56 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:43:14 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=11&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:43:20 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=1&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:43:30 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userId=1&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:44:24 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userI=1&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:44:52 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userId=1&productId=1&rating=3 - reqBody:{}","service":"request-info"}
+{"level":"info","message":"Sun Jan 14 2024 18:45:09 GMT+0530 (India Standard Time) reqUrl:/api/products/rate?userId=1&productId=1&rating=3 - reqBody:{}","service":"request-info"}

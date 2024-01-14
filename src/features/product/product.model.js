@@ -1,5 +1,5 @@
 import UserModel from "../user/user.model.js";
-
+import ApplicationError from "../../error-handling/applicationerror.js";
 export default class ProductModel {
   constructor(id, name, desc, price, imageUrl, category, sizes, rating) {
     this.id = id;
@@ -45,14 +45,14 @@ export default class ProductModel {
     const user = UserModel.getAllUsers().find((u) => u.id == userId);
 
     if (!user) {
-      return "user not found";
+      throw new ApplicationError("user not found", 400);
     }
 
     // 2. check whether product if found or not
 
     const product = products.find((p) => p.id == productId);
     if (!product) {
-      return "product not found";
+      throw new ApplicationError("product not found", 400);
     }
 
     // 3. check whether rating arrayis prsent or not

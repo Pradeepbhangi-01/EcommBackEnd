@@ -21,13 +21,8 @@ export default class ProductController {
 
   rateProducts(req, res) {
     const { userId, productId, rating } = req.query;
-    const error = ProductModel.rateProduct(userId, productId, rating);
-
-    if (error) {
-      return res.status(400).send(error);
-    } else {
-      return res.status(200).send("rating is added");
-    }
+    ProductModel.rateProduct(userId, productId, rating);
+    return res.status(200).send("rating is added");
   }
 
   filterProducts(req, res) {
