@@ -9,6 +9,7 @@ import apiDocs from "./swagger.json" assert { type: "json" };
 import jwtAuth from "./src/middleware/jwtAuth.middleware.js";
 import loggerMiddleware from "./src/middleware/logger.middleware.js";
 import ApplicationError from "./src/error-handling/applicationerror.js";
+import connectToMongodb from "./src/config/mongodb.js";
 
 const app = express();
 
@@ -51,4 +52,5 @@ app.use((req, res) => {
 
 app.listen(5000, () => {
   console.log("app is running on port 5000");
+  connectToMongodb();
 });
