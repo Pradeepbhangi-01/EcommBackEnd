@@ -1,10 +1,18 @@
 import CartItemsModel from "./cartItems.model.js";
+import CartItemsRepository from "./cartItems.repository.js";
 
 export default class CartItemsController {
-  addCartItems(req, res) {
-    const { productID, quantity } = req.query;
-    const userID = req.userID;
-    const item = CartItemsModel.addCartItems(productID, userID, quantity);
+  constructor() {
+    this.cartRespository = new CartItemsRepository();
+  }
+  async addCartItems(req, res) {
+    const { productId, quantity } = req.body;
+    const userId = req.userId;
+    const item = await this.cartRespository.addItems(
+      productId,
+      userId,
+      Number(quantity)
+    );
     if (!item) {
       res.status(401).send("Unauthorized");
     } else {
@@ -12,9 +20,9 @@ export default class CartItemsController {
     }
   }
 
-  getUserCartItems(req, res) {
-    const userID = req.userID;
-    const cartItems = CartItemsModel.getUserCartItems(userID);
+  async getUserCartItems(req, res) {
+    const userId = req.userId;
+    const cartItems = await this.cartRespository.getItems(userId);
     if (!cartItems) {
       res.status(401).send("no cart items");
     } else {
@@ -22,11 +30,11 @@ export default class CartItemsController {
     }
   }
 
-  deleteCartItem(req, res) {
-    const cartID = req.params.id;
-    const userID = req.userID;
-    const error = CartItemsModel.deleteCartItem(userID, cartID);
-    if (error) {
+  async deleteCartItem(req, res) {
+    const cartItemId = req.params.id;
+    const userId = req.userId;
+    const error = await this.cartRespository.deleteItems(userId, cartItemId);
+    if (!error) {
       return res.status(400).send(error);
     }
     return res.status(200).send("cart item deleted");

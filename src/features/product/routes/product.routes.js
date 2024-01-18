@@ -7,14 +7,21 @@ const productController = new ProductController();
 
 const productRouter = express.Router();
 
-productRouter.get("/", productController.getAllProducts);
-productRouter.post(
-  "/add",
-  upload.single("imageUrl"),
-  productController.addProduct
-);
-productRouter.get("/product/:id", productController.getOneProduct);
-productRouter.get("/filter", productController.filterProducts);
-productRouter.post("/rate", productController.rateProducts);
+productRouter.get("/", (req, res) => {
+  productController.getAllProducts(req, res);
+});
+
+productRouter.post("/add", upload.single("imageUrl"), (req, res) => {
+  productController.addProduct(req, res);
+});
+productRouter.get("/product/:id", (req, res) => {
+  productController.getOneProduct(req, res);
+});
+productRouter.get("/filter", (req, res) => {
+  productController.filterProducts(req, res);
+});
+productRouter.post("/rate", (req, res) => {
+  productController.rateProducts(req, res);
+});
 
 export default productRouter;

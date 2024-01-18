@@ -1,8 +1,7 @@
 import UserModel from "../user/user.model.js";
 import ApplicationError from "../../error-handling/applicationerror.js";
 export default class ProductModel {
-  constructor(id, name, desc, price, imageUrl, category, sizes, rating) {
-    this.id = id;
+  constructor(name, desc, price, imageUrl, category, sizes, rating, stock, id) {
     this.name = name;
     this.desc = desc;
     this.price = price;
@@ -10,6 +9,8 @@ export default class ProductModel {
     this.category = category;
     this.sizes = sizes;
     this.ratings = rating;
+    this.stock = stock;
+    this._id = id;
   }
 
   static GetAll() {
