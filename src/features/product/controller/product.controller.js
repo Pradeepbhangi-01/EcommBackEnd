@@ -1,5 +1,6 @@
 import ProductModel from "../product.model.js";
 import ProductRepository from "../product.repository.js";
+// import ProductModel from "../product.schema.js";
 
 export default class ProductController {
   constructor() {
@@ -12,13 +13,13 @@ export default class ProductController {
   }
 
   async addProduct(req, res) {
-    const { name, desc, price, sizes, category, stock } = req.body;
+    const { name, desc, price, categories, sizes, stock } = req.body;
     const product = new ProductModel(
       name,
       desc,
       parseFloat(price),
       req.file.filename,
-      category,
+      categories,
       sizes.split(","),
       stock
     );
@@ -26,7 +27,7 @@ export default class ProductController {
     res.status(201).send(addProduct);
   }
 
-  async rateProducts(req, res) {
+  async rateProducts(req, res, next) {
     try {
       const userId = req.userId;
       const { productId, rating } = req.body;

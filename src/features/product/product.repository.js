@@ -1,24 +1,31 @@
 import { ObjectId } from "mongodb";
 import { getdb } from "../../config/mongodb.js";
 import ApplicationError from "../../error-handling/applicationerror.js";
+import ReviewModel from "./productReview.schema.js";
+import ProductModel from "./product.schema.js";
+import CategoryModel from "./category.schema.js";
 
 class ProductRepository {
   constructor() {
     this.collection = "products";
   }
   //1. adding data to the database
-  async addProduct(product) {
+  async addProduct(productData) {
     try {
-      //1. connect to the database
-      const db = getdb();
-      //2. create the collection
-      const collection = db.collection(this.collection);
+      productData.categories = productData.categories.split(",");
+      //1. adding the product
+      const newProduct = new ProductModel(productData);
+      const savedProduct = await newProduct.save();
 
-      //3. add the products
-
-      await collection.insertOne({ product });
-      return product;
+      //2. Update the categories
+      await CategoryModel.updateMany(
+        {
+          _id: { $in: productData.categories },
+        },
+        { $push: { products: new ObjectId(savedProduct._id) } }
+      );
     } catch (error) {
+      console.log(error);
       throw new ApplicationError("Something went wrong");
     }
   }
@@ -82,29 +89,31 @@ class ProductRepository {
     }
   }
 
-  async rateProduct(userId, productID, rating) {
+  async rateProduct(userId, productId, rating) {
     try {
-      const db = getdb();
-      const collection = db.collection(this.collection);
-      //1 pulling the existing entry
-      collection.updateOne(
-        {
-          _id: new ObjectId(id),
-        },
-        {
-          $pull: { ratings: { userID: new ObjectId(userId), rating } },
-        }
-      );
+      // adding the product using the moongoose
+      const productToUpdate = await ProductModel.findById(productId);
+      if (!productToUpdate) {
+        throw new Error("Product does not exist");
+      }
 
-      //2. this will update   the rating
-      collection.updateOne(
-        {
-          _id: new ObjectId(id),
-        },
-        {
-          $push: { ratings: { userID: new ObjectId(userId), rating } },
-        }
-      );
+      //Find the exisiting review
+      const userReview = await ReviewModel.findOne({
+        productId: new ObjectId(productId),
+        userId: new ObjectId(userId),
+      });
+
+      if (userReview) {
+        userReview.rating = rating;
+        await userReview.save();
+      } else {
+        const newReview = new ReviewModel({
+          userId: new ObjectId(userId),
+          productId: new ObjectId(productId),
+          rating: rating,
+        });
+        await newReview.save();
+      }
     } catch (error) {
       throw new ApplicationError("Something went wrong", 500);
     }

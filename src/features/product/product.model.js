@@ -1,12 +1,22 @@
 import UserModel from "../user/user.model.js";
 import ApplicationError from "../../error-handling/applicationerror.js";
 export default class ProductModel {
-  constructor(name, desc, price, imageUrl, category, sizes, rating, stock, id) {
+  constructor(
+    name,
+    desc,
+    price,
+    imageUrl,
+    categories,
+    sizes,
+    rating,
+    stock,
+    id
+  ) {
     this.name = name;
     this.desc = desc;
     this.price = price;
     this.imageUrl = imageUrl;
-    this.category = category;
+    this.categories = categories;
     this.sizes = sizes;
     this.ratings = rating;
     this.stock = stock;
